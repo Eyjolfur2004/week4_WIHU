@@ -9,20 +9,22 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Get the code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Set up Bun
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
 
-      # Step 3: Install dependencies
-      - name: Install dependencies
+      - name: Install dependencies (only if package.json exists)
+        if: hashFiles('package.json') != ''
         run: bun install
 
-      # Step 4: Run tests
-      - name: Run tests
+      - name: Run tests (only if package.json exists)
+        if: hashFiles('package.json') != ''
         run: bun test
+
+      - name: Skip message (when no package.json)
+        if: hashFiles('package.json') == ''
+        run: echo "No package.json in this repo - skipping bun steps."
+
