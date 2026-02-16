@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: week-3-vitest
+        working-directory: week4_WIHU/week-3-vitest
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
